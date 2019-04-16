@@ -101,8 +101,6 @@
             pass: this.password.toLowerCase()
           }
 
-          // this.$store.commit('validateUser', usuario)
-
           this.$store.dispatch('validateUser', usuario).then(() => {
             this.$router.push('/' + this.page)
           }).catch(() => {

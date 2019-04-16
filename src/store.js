@@ -59,6 +59,30 @@ export default new Vuex.Store({
         })
 
       })
+    },
+    guardarPieza ({state}, payload) {
+      return new Promise((resolve, reject) => {
+        let pieza = {
+          name: payload.name,
+          maquina: payload.maquina,
+          dimension: payload.dimension,
+          fallo: payload.fallo,
+          observaciones: payload.observaciones,
+          nombre_operario: state.user.name,
+          created: new Date()
+        }
+
+        console.log(pieza)
+
+        db.collection('Piezas').add(pieza)
+          .then(() => {   
+            return resolve()
+        })
+        .catch(() => {
+          return reject()
+        })
+
+      })
     }
   }
 })
