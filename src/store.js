@@ -25,14 +25,25 @@ export default new Vuex.Store({
       role: '',
       name: ''
     },
-    activePage: ''
+    activePage: '',
+    piezas: []
   },
   getters: {
     getActivePage: state => {
       return state.activePage
+    },
+    getListPiezas: state => {
+      return state.piezas
     }
   },
   mutations: {
+    obtenerPiezas (state) {
+      db.collection('Piezas').get().then((piezas) => {
+        piezas.docs.forEach(pieza => {
+          state.piezas.push(pieza.data())
+        })        
+      })
+    }
   },
   actions: {
     validateUser ({state}, payload) {
@@ -71,8 +82,6 @@ export default new Vuex.Store({
           nombre_operario: state.user.name,
           created: new Date()
         }
-
-        console.log(pieza)
 
         db.collection('Piezas').add(pieza)
           .then(() => {   
