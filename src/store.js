@@ -43,6 +43,11 @@ export default new Vuex.Store({
           state.piezas.push(pieza.data())
         })        
       })
+    },
+    logout (state) {
+      state.activePage = ''
+      state.user.rol = ''
+      state.user.name = ''
     }
   },
   actions: {
