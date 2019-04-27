@@ -7,7 +7,6 @@
       select-all
       item-key="operador"
       class="elevation-1"
-      :pagination.sync="pagination"
     >
       <template v-slot:headers="props">
         <tr>
@@ -23,8 +22,6 @@
           <th
             v-for="header in props.headers"
             :key="header.text"
-            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
-            @click="changeSort(header.value)"
           >
             <v-icon small>arrow_upward</v-icon>
             {{ header.text }}
@@ -71,9 +68,6 @@
 export default {
   data: () => {
     return {
-      pagination: {
-        sortBy: 'operador'
-      },
       selected: [],
       headers: [
         { text: 'Operador', value: 'operador'
@@ -94,20 +88,11 @@ export default {
     toggleAll () {
       if (this.selected.length) this.selected = []
       else this.selected = this.desserts.slice()
-    },
-    changeSort (column) {
-      if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending
-      } else {
-        this.pagination.sortBy = column
-        this.pagination.descending = false
-      }
     }
   },
   created() {
     this.$store.commit('obtenerPiezas')
   }
-
 }
 </script>
 
