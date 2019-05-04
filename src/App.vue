@@ -42,6 +42,19 @@ export default {
 
       this.$router.push('/')
     }
+  },
+  created() {
+    let mediaQueryMobile = window.matchMedia('(max-width: 700px)')
+    let mediaQueryTablet = window.matchMedia('(max-width: 1024px)')
+
+    let mediaQuery = 'desktop'
+
+    if (mediaQueryMobile.matches)
+      mediaQuery = 'mobile'
+    else if (mediaQueryMobile.matches)
+      mediaQuery = 'tablet'
+
+    this.$store.commit('setMediaQuery', mediaQuery)
   }
 }
 </script>

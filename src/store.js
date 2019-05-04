@@ -25,22 +25,29 @@ export default new Vuex.Store({
       role: '',
       name: ''
     },
+    mediaQuery: '',
     activePage: '',
-    piezas: []
+    operaciones: []
   },
   getters: {
     getActivePage: state => {
       return state.activePage
     },
-    getListPiezas: state => {
+    getListOperations: state => {
       return state.piezas
+    },
+    getMediaQuery: state => {
+      return state.mediaQuery
     }
   },
   mutations: {
-    obtenerPiezas (state) {
-      db.collection('Piezas').get().then((piezas) => {
-        piezas.docs.forEach(pieza => {
-          state.piezas.push(pieza.data())
+    setMediaQuery (state, mediaQuery) {
+      state.mediaQuery = mediaQuery
+    },
+    obtenerOperaciones (state) {
+      db.collection('Operaciones').get().then((operaciones) => {
+        operaciones.docs.forEach(operacion => {
+          state.operaciones.push(operacion.data())
         })        
       })
     },
@@ -76,9 +83,9 @@ export default new Vuex.Store({
 
       })
     },
-    guardarPieza ({state}, payload) {
+    saveOperation ({state}, payload) {
       return new Promise((resolve, reject) => {
-        let pieza = {
+        let operacion = {
           name: payload.name,
           maquina: payload.maquina,
           dimension: payload.dimension,
@@ -88,14 +95,13 @@ export default new Vuex.Store({
           created: new Date()
         }
 
-        db.collection('Piezas').add(pieza)
+        db.collection('Operaciones').add(operacion)
           .then(() => {   
             return resolve()
         })
         .catch(() => {
           return reject()
         })
-
       })
     }
   }

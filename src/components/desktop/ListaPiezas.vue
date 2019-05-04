@@ -2,7 +2,7 @@
   <v-data-table
     v-model="selected"
     :headers="headers"
-    :items="piezas"
+    :items="operaciones"
     select-all
     item-key="operador"
     class="elevation-1"
@@ -68,8 +68,8 @@ export default {
     }
   },
   computed: {
-    piezas () {
-      return this.$store.getters.getListPiezas
+    operaciones () {
+      return this.$store.getters.getListOperations
     }
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit('obtenerPiezas')
+    this.$store.commit('obtenerOperaciones')
   }
 }
 </script>
